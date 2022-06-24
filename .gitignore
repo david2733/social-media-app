@@ -131,4 +131,6 @@ dmypy.json
 
 db.sqlite3
 
-/django-social-media-template-main
+/static
+*.jpg
+*.png
