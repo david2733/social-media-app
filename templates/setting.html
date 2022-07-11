@@ -52,8 +52,15 @@
     
                         <div class="col-span-2">
                                 <label for=""> Profile Image </label>
-                                <img src="{{user_profile.profileimg.url}}" width="100px" height="100px">
-                                <input type="file" name="image" value="{{user_profile.profileimg}}" class="shadow-none bg-gray-100">
+                                <div style="display: flex;justify-content: center;align-items: center;overflow: hidden; border: 1px black solid; width:100px; height:100px; margin: 5px;" >
+                                    <img src="{{user_profile.profileimg.url}}" style="  flex-shrink: 0;width: 100%;
+   height: auto;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;">
+                                </div>
+                                
+                                <input type="file" name="image" value="{{user_profile.profileimg}}" class="shadow-none bg-gray-100" with="100px" height="100px">
                             </div>
                             <div class="col-span-2">
                                 <label for="about">Bio</label>  
@@ -166,7 +173,7 @@
     <script src="{% static 'assets/js/custom.js' %}"></script>
 
 
-    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+    <script src="{% static 'unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
 </body>
 
 </html>

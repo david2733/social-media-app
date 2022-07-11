@@ -3,18 +3,22 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Post
-
+from .models import LikePost, Profile, Post
+from itertools import chain
 import random
 
 # Create your views here.
 
 @login_required(login_url='signin')
 def index(request):
+    
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
 
     posts = Post.objects.all()[::-1]
+    
+    # if len(posts)>0:
+        # profiles = {Profile.objects.get(user=) for post in posts}
 
  
     return render(request, 'index.html', {'user_profile': user_profile, 'posts':posts})
@@ -26,12 +30,44 @@ def upload(request):
         user = request.user.username
         image = request.FILES.get('image_upload')
         caption = request.POST['caption']
+        if image == None:
+           return redirect('/') 
+        else:
 
-        new_post = Post.objects.create(user=user, image=image, caption=caption)
-        new_post.save()
+            new_post = Post.objects.create(user=user, image=image,caption=caption)
+            new_post.save()
 
+            return redirect('/')
+    
+@login_required(login_url='signin')
+def profile(request, pk):
+    user_object = User.objects.get(username=pk)
+    user_profile = Profile.objects.get(user=user_object)
+    context = {
+        'user_object':user_object,
+        'user_profile': user_profile
+    }
+    return render(request,'profile.html', context)
+
+
+@login_required(login_url='signin')
+def like_post(request):
+    username=request.user.username
+    post_id = request.GET.get('post_id')
+
+    post = Post.objects.get(id=post_id)
+    
+    like_filter = LikePost.objects.filter(post_id=post_id,username=username).first()
+    if like_filter == None:
+        new_like = LikePost.objects.create(post_id=post_id, username=username)
+        new_like.save()
+        post.no_of_likes = post.no_of_likes+1
+        post.save()
         return redirect('/')
     else:
+        like_filter.delete()
+        post.no_of_likes=post.no_of_likes-1
+        post.save()
         return redirect('/')
 
 

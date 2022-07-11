@@ -771,7 +771,7 @@ header.sticky {
 }
 
 .timeline-info {
-    background: ##b0b3b8 none repeat scroll 0 0;
+    background: #b0b3b8 none repeat scroll 0 0;
     display: block;
     line-height: 59px;
     width: 100%;
@@ -10037,4 +10037,15 @@ aside.sidebar.full-style {
     text-transform: uppercase;
 }
 
+#follow_button{
+    background-color: #4330ba !important;
+    color: white !important;
+    padding: 10px;
+    border: #000 1px solid;
+    border-radius: 9px;
+}
 
+#follow_button:hover{
+    background-color: #000000 !important;
+    color: wheat;
+}
