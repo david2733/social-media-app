@@ -206,8 +206,8 @@
                             <div class="flex justify-between items-center px-4 py-3">
                                 <div class="flex flex-1 items-center space-x-4">
                                     <a href="#">
-                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">  
-                                         <a href="/profile/{{post.user}}">   <img src="{{ user_profile.profileimg.url }}" class="bg-gray-200 border border-white rounded-full w-8 h-8"></a>
+                                        <div class=" rounded-full" style="display: flex;    justify-content: center; !important;align-items: center;  overflow: hidden">  
+                                         <a href="/profile/{{post.user}}"><img src="{{ post.user.profileimg.url }}" class="bg-gray-200 rounded-full w-10 h-10" ></a>
                                         </div>
                                     </a> 
                                     <span class="block capitalize font-semibold "> <a href="/profile/{{post.user}}"><strong>@{{post.user}} </strong> </a></span> </a>
@@ -251,9 +251,14 @@
                               </div>
                             </div>
     
-                            <div uk-lightbox>
+                            <div uk-lightbox style=" display: flex; max-height: 700px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden">
                                 <a href="{{ post.image.url }}">  
-                                    <img src="{{ post.image.url }}" alt="">
+                                    <img src="{{ post.image.url }}" style=" flex-shrink: 0; object-fit: cove;
+    width: 100vw;
+    "alt="">
                                 </a>
                             </div>
                             
@@ -353,57 +358,21 @@
                             </div>
                            
                             <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 ">
-                                <div class="flex items-center justify-between py-3">
+                                {% for user in users %}
+                                  <div class="flex items-center justify-between py-3">
                                     <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
+                                        <a href="profile/{{user.username}}">
+                                            <img src="{{user.profileimg.url}}" class="bg-gray-200 rounded-full w-10 h-10">
                                         </a>
                                         <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> tomi_ml </span>
-                                            <span class="block capitalize text-sm"> 320k followers </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> taiye </span>
-                                            <span class="block capitalize text-sm"> New user </span>
+                                            <span class="block capitalize font-semibold"> {{user.user.username}} </span>
+                                            <span class="block capitalize text-sm"> 0 followers </span>
                                         </div>
                                     </div>
                                     <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
                                 </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-5.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> kayode </span>
-                                            <span class="block capitalize text-sm"> 20.7k followers </span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-7.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> faith_do </span>
-                                            <span class="block capitalize text-sm"> 100.5k followers </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-
+                                {% endfor %}
+                                
                             </div>
 
                         </div>

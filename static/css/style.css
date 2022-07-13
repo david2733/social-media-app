@@ -3288,6 +3288,9 @@ nav.breadcrumb {
 /*--- photos page ---*/
 
 .photos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     list-style: outside none none;
     margin-bottom: 0;
     padding-left: 0;
@@ -3295,8 +3298,8 @@ nav.breadcrumb {
 
 .photos > li {
     display: inline-block;
-    min-width: 32.3%;
-    width: 32.3%;
+    min-width: 100px;
+    width: 100px;
     margin: 0 1.3px;
 }
 

@@ -16,12 +16,12 @@ def index(request):
     user_profile = Profile.objects.get(user=user_object)
 
     posts = Post.objects.all()[::-1]
-    
+    users = Profile.objects.all() 
     # if len(posts)>0:
         # profiles = {Profile.objects.get(user=) for post in posts}
 
  
-    return render(request, 'index.html', {'user_profile': user_profile, 'posts':posts})
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts':posts, 'users':users})
 
 @login_required(login_url='signin')
 def upload(request):
@@ -34,7 +34,7 @@ def upload(request):
            return redirect('/') 
         else:
 
-            new_post = Post.objects.create(user=user, image=image,caption=caption)
+            new_post = Post.objects.create(user=Profile.objects.get(user=request.user), image=image,caption=caption)
             new_post.save()
 
             return redirect('/')
@@ -43,9 +43,11 @@ def upload(request):
 def profile(request, pk):
     user_object = User.objects.get(username=pk)
     user_profile = Profile.objects.get(user=user_object)
+    user_posts = Post.objects.filter(user=user_profile)
     context = {
         'user_object':user_object,
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'user_posts':user_posts
     }
     return render(request,'profile.html', context)
 
