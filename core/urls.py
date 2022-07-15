@@ -1,4 +1,4 @@
-from operator import index
+
 from django.urls import path
 from . import views
 
@@ -7,6 +7,7 @@ urlpatterns = [
     path('signup',views.signup, name='signup'),
     path('upload', views.upload, name='upload'),
     path('profile/<str:pk>', views.profile, name="profile"),
+    path('follow', views.follow, name="follow"),
     path('like-post', views.like_post, name='like_post'),
     path('signin', views.signin, name="signin"),
     path('logout',views.logout, name='logout'),

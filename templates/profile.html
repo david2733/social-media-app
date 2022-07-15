@@ -27,17 +27,41 @@
 	<section>
 			<div class="feature-photo">
 				<figure><img src="{% static 'images/resources/timeline-1.jpg' %}" alt=""></figure>
-				<form>
-					<div class="add-btn" style="display: flex; ">
+				<form method="POST" action="{% url 'follow' %}">
+				{% csrf_token %}
+					<div class="add-btn" style="display: flex;">
 					
-					<span style="color: white; font-size: 27px;"><b>11 Post</b></span>
-					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
-					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
-					<a href="" title="" data-ripple="" id="follow_button">Follow</a>
 					
-					</div>
-				</form>
+					{% if user_post_length == 0 %}
+					<span style="color: white; font-size: 27px;"><b>No Post</b></span>
+					{% elif user_post_length == 1 %}
+					<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Post</b></span>
+					{% else %}
+					<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Posts</b></span>
+					{% endif %}
 
+					{% if user_followers == 0 or user_followers == 1 %}
+					<span style="color: white; font-size: 27px;"><b>{{user_followers}} follower</b></span>
+					{% else %}
+					<span style="color: white; font-size: 27px;"><b>{{user_followers}} followers</b></span>
+					{% endif %}
+
+
+					<span style="color: white; font-size: 27px;"><b>{{user_following}} following</b></span>
+
+					<input type="hidden" value="{{user.username}}" name="follower" />
+					<input type="hidden" value="{{user_object.username}}" name="user" />
+
+					{% if user_object.username == user.username %}
+					<a href="/settings" data-ripple="">Account Settings</a>
+					{% else %}
+					<a data-ripple=""><button type="submit" style="background-color: #ffc0cb; border: #ffc0cb;">{{button_text}}</button></a>
+					{% endif %}
+
+					</div>	
+
+				</form>
+				
 				<!-- <form class="edit-phto">
 					<i class="fa fa-camera-retro"></i>
 					<label class="fileContainer">
@@ -46,9 +70,11 @@
 					</label>
 				</form> -->
 				<div class="container-fluid">
+
 					<div class="row merged">
 						<div class="col-lg-2 col-sm-3">
 							<div class="user-avatar" style="border: 1px solid black; display: flex;justify-content: center;align-items: center;overflow: hidden;  width:200px; height:200px; margin-left: 10px;">
+								
 								<figure>
 									
 									<a href="{{user_profile.profileimg.url}}">
